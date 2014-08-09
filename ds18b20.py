@@ -8,7 +8,7 @@ class DS18B20(object):
         self.file_name = '/sys/bus/w1/devices/' + id + '/w1_slave'
         self.logger = logging.getLogger(__name__)
 
-    def getTemperature(self):
+    def get_temperature(self):
         try:
             f = open(self.file_name, 'r')
         except IOError:
