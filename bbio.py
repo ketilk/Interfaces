@@ -3,8 +3,9 @@ import Adafruit_BBIO.GPIO as GPIO
 class BBIO(object):
   _object_count = 0
   
-  def __init__(self):
+  def __init__(self, pin):
     self.__class__._object_count += 1
+    self.pin = pin
     
   def __del__(self):
     self.__class__._object_count -= 1
@@ -13,17 +14,16 @@ class BBIO(object):
 
 class OutputPin(BBIO):
   def __init__(self, pin):
-    BBIO.__init__()
-    GPIO.setup(pin, GPIO.OUT)
+    BBIO.__init__(self, pin)
+    GPIO.setup(self.pin, GPIO.OUT)
     self.state = 0
-    self.set_low()
   
   def set_high(self):
-    GPIO.output(pin, GPIO.HIGH)
+    GPIO.output(self.pin, GPIO.HIGH)
     self.state = 1
   
   def set_low(self):
-    GPIO.output(pin, GPIO.LOW)
+    GPIO.output(self.pin, GPIO.LOW)
     self.state = 0
   
   def get_state(self):
@@ -32,8 +32,8 @@ class OutputPin(BBIO):
 class InputPin(BBIO):
   def __init__(self, pin):
     BBIO.__init__()
-    GPIO.setup(pin, GPIO.IN)
+    GPIO.setup(self.pin, GPIO.IN)
   
   def input(self):
-    return GPIO.input(pin)
+    return GPIO.input(self.pin)
   
