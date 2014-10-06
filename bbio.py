@@ -27,7 +27,7 @@ class OutputPin(BBIO):
     self.state = 0
   
   def get_state(self):
-    return state
+    return self.state
 
 class InputPin(BBIO):
   def __init__(self, pin):
